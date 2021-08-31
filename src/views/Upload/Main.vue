@@ -1,5 +1,5 @@
 <template>
-	<div class="hello"></div>
+	<div class="upload"></div>
 </template>
 
 <script lang="ts" setup></script>
