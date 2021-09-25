@@ -9,11 +9,19 @@
 	},
 	"dependencies": {
 		"@fortawesome/free-solid-svg-icons": "^5.15.4",
+		"@kangc/v-md-editor": "^2.3.8",
+		"axios": "^0.21.1",
+		"codemirror": "^5.62.3",
 		"core-js": "^3.6.5",
 		"element-plus": "^1.1.0-beta.7",
+		"highlight.js": "^11.2.0",
+		"markdown-it": "^12.2.0",
+		"prismjs": "^1.24.1",
 		"vue": "^3.0.0",
 		"vue-class-component": "^8.0.0-0",
 		"vue-router": "^4.0.0-0",
+		"vue3-print-nb": "^0.1.4",
+		"vuepress": "^1.8.2",
 		"vuex": "^4.0.0-0"
 	},
 	"devDependencies": {
@@ -42,7 +50,7 @@
 		"prettier": "^2.2.1",
 		"sass": "^1.26.5",
 		"sass-loader": "^8.0.2",
-		"typescript": "~4.1.5",
+		"typescript": "4.3.4",
 		"vite": "^2.5.1",
 		"vue-tsc": "^0.3.0"
 	}

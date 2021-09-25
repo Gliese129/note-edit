@@ -19,7 +19,7 @@ export default defineConfig({
 		https: false,
 		proxy: {
 			'/api': {
-				target: 'http://localhost:8080',
+				target: 'http://101.132.79.206:8081',
 				changeOrigin: true,
 				rewrite: (path) => path.replace(/^\/api/, '')
 			}
@@ -30,5 +30,8 @@ export default defineConfig({
 		alias: {
 			'@': path.resolve(__dirname, 'src/')
 		}
+	},
+	optimizeDeps: {
+		include: ['@kangc/v-md-editor/lib/plugins/line-number/index.js']
 	}
 })
