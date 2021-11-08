@@ -8,7 +8,7 @@
 			:data="{ path: fullPath }"
 			:file-list="fileList"
 			:before-upload="view"
-			:on-success="checkIfSuccess"
+			:on-success="handleSuccess"
 			:on-error="alertError"
 		>
 			<i class="el-icon-upload"></i>
@@ -28,7 +28,6 @@ const store = useStore()
 const props = defineProps({
 	fileName: String
 })
-
 let folderPath = $computed(() => store.state.file.folderPath)
 let fileName = $ref('')
 let fullPath = $computed(
@@ -36,17 +35,19 @@ let fullPath = $computed(
 		folderPath + (props.fileName && props.fileName !== '' ? props.fileName + '.pdf' : fileName)
 )
 const fileList = reactive([])
-const view = async (file: any) => {
+const view = (file: any) => {
 	fileName = file.name
-	await setTimeout(() => {}, 50)
 	if (folderPath == '') {
 		ElMessage.warning('文件必须放在某文件夹下')
 		throw new Error('no root folder')
 	}
 }
-const checkIfSuccess = (response: any, file: File, fileList: File[]) => {
+const handleSuccess = (response: any, file: File, fileList: File[]) => {
 	let code = response.code
 	if (code == 500) ElMessage.error('文件不能重名!')
+	if (code == 200) {
+		fileName = ''
+	}
 }
 const alertError = (err: any, file: File, fileList: File[]) => {
 	if (err.code === 413) ElMessage.warning('文件过大!')

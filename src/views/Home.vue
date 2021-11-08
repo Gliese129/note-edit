@@ -1,22 +1,9 @@
 <template>
 	<div class="home">
-		<el-tree :props="treeProps" :load="loadNode" lazy>
+		<h3>文件一览:</h3>
+		<el-tree :props="treeProps" :load="loadNode" lazy @node-click="handldNodeClicked">
 			<template #default="{ node, data }">
-				<el-popover
-					placement="right"
-					:width="100"
-					trigger="click"
-					v-if="data.type !== 'folder'"
-				>
-					<template #reference>
-						<file-view :name="data.name" :type="data.type" />
-					</template>
-					<el-button-group>
-						<el-button @click="viewNote(data.id)">查看笔记</el-button>
-						<el-button @click="editNote(data.id)">编辑笔记</el-button>
-					</el-button-group>
-				</el-popover>
-				<file-view v-else :name="data.name" :type="data.type" />
+				<file-view :name="data.name" :type="data.type" :opened="node.expanded" />
 			</template>
 		</el-tree>
 	</div>
@@ -28,6 +15,10 @@ import { reactive } from 'vue'
 import type { ITreeNode } from '@/global/entity/Tree'
 import fileApis from '@/apis/fileApis'
 import { fileInfoToNode } from '@/utils/file'
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+const router = useRouter()
+const store = useStore()
 
 const treeProps = reactive({
 	label: 'name',
@@ -49,21 +40,15 @@ const loadNode = (node: any, resolve: any) => {
 		})
 	}
 }
-import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
-const router = useRouter()
-const store = useStore()
-const editNote = (fileId: number) => {
-	store.commit('file/setFileId', fileId)
-	router.push({
-		path: `/note-edit/${fileId}`
-	})
-}
-const viewNote = (fileId: number) => {
-	store.commit('file/setFileId', fileId)
-	router.push({
-		path: `/note-view/${fileId}`
-	})
+const handldNodeClicked = (node: ITreeNode) => {
+	// * check if node is file
+	if (node.type !== 'folder') {
+		store.commit('file/setFileInfoLight', {
+			id: node.id,
+			name: node.name
+		})
+		router.push(`/note/view/${node.id}`)
+	}
 }
 </script>
 

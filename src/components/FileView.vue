@@ -1,16 +1,23 @@
 <template>
 	<div class="file-view">
-		<div class="icon" :class="props.type ? props.type.toLowerCase() : ''"></div>
-		<span class="name">{{ props.name }}</span>
+		<el-icon v-if="props.type === 'folder'">
+			<folder-opened v-show="props.opened" />
+			<folder v-show="!props.opened" />
+		</el-icon>
+		<el-icon v-else>
+			<document />
+		</el-icon>
+		<span icon="el-icon-folder" class="name">{{ props.name }}</span>
 	</div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, watch } from 'vue'
+import { Folder, FolderOpened, Document } from '@element-plus/icons'
 
 const props = defineProps({
 	name: String,
-	type: String
+	type: String,
+	opened: Boolean
 })
 </script>
 

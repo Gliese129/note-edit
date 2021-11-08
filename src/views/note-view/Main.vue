@@ -42,7 +42,7 @@ const getInfoById = (id: number) => {
 		})
 	}
 }
-watch($raw(fileId), (val) => {
+watch($$(fileId), (val) => {
 	getInfoById(val)
 })
 onMounted(() => {

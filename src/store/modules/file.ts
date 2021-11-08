@@ -1,8 +1,13 @@
+interface FileInfoLight {
+	id: number
+	name: string
+}
 const file = {
 	namespaced: true,
 	state: {
 		folderPath: '',
-		fileId: 0
+		fileId: 0,
+		fileName: ''
 	},
 	mutations: {
 		setFolderPath(state: any, paths: string[]) {
@@ -12,8 +17,12 @@ const file = {
 			})
 			state.folderPath = result
 		},
-		setFileId(state: any, fileId: number) {
-			state.fileId = fileId
+		setFileId(state: any, id: number) {
+			state.fileId = id
+		},
+		setFileInfoLight(state: any, file: FileInfoLight) {
+			state.fileId = file.id
+			state.fileName = file.name
 		}
 	}
 }

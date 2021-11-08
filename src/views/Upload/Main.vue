@@ -25,7 +25,7 @@ import { useStore } from 'vuex'
 const store = useStore()
 
 const path = reactive<string[]>([''])
-watch($raw(path), (val) => {
+watch($$(path), (val) => {
 	console.log(val)
 	store.commit('file/setFolderPath', val)
 })

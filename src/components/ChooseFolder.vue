@@ -27,14 +27,14 @@
 import fileApis from '@/apis/fileApis'
 import type { IFileInfo } from '@/global/entity/File'
 import { fileInfoToNode } from '@/utils/file'
-import { onMounted, reactive, watch } from 'vue'
+import { reactive, watch } from 'vue'
 
 const props = defineProps({
 	allowUnexistFolder: Boolean,
 	pathArray: Array
 })
 const emit = defineEmits(['update:pathArray'])
-let path = $computed({
+let path = $computed<string[]>({
 	get: () => props.pathArray,
 	set: (value: string[]) => emit('update:pathArray', value)
 })
@@ -49,7 +49,7 @@ const autoSetLength = (pos: number) => {
 }
 
 let focusIndex = $ref(0)
-watch($raw(focusIndex), () => {
+watch($$(focusIndex), () => {
 	flag = true
 })
 
