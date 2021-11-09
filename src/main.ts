@@ -4,6 +4,8 @@ import router from './router'
 import store from './store'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+
+import VueClipboard from 'vue3-clipboard'
 // markdown pro
 import VueMarkdownEditor from '@kangc/v-md-editor'
 import '@kangc/v-md-editor/lib/style/base-editor.css'
@@ -79,5 +81,14 @@ VMdPreview.use(githubTheme, {
 	.use(createLineNumbertPlugin())
 
 const app = createApp(App)
-app.use(store).use(router).use(ElementPlus).use(VueMarkdownEditor).use(VMdPreview).use(print)
+app.use(store)
+	.use(router)
+	.use(ElementPlus)
+	.use(VueClipboard, {
+		autoSetContainer: true,
+		appendToBody: true
+	})
+	.use(VueMarkdownEditor)
+	.use(VMdPreview)
+	.use(print)
 app.mount('#app')

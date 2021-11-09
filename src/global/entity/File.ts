@@ -5,5 +5,9 @@ interface IFileInfo {
 	folderId: number
 	realPath: string | null
 }
+interface IFileInfoLight {
+	id: number
+	name: string
+}
 
-export { IFileInfo }
+export { IFileInfo, IFileInfoLight }

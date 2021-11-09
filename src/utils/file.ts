@@ -15,4 +15,16 @@ const fileInfoToNode = (filesInfo: IFileInfo[]): ITreeNode[] => {
 	return result
 }
 
-export { fileInfoToNode }
+import fileApis from '@/apis/fileApis'
+import ElMessage from './ElMessage'
+const deleteFile = async (fileId: number) => {
+	console.log(fileId)
+	let response = await fileApis.deleteFileById(fileId)
+	if (response.code == 200) {
+		ElMessage.success('删除成功')
+	} else {
+		ElMessage.error('删除失败')
+	}
+}
+
+export { fileInfoToNode, deleteFile }

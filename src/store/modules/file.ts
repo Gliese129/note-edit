@@ -1,13 +1,12 @@
-interface FileInfoLight {
-	id: number
-	name: string
-}
+import fileApis from '@/apis/fileApis'
+import type { IFileInfo, IFileInfoLight } from '@/global/entity/file'
 const file = {
 	namespaced: true,
 	state: {
-		folderPath: '',
 		fileId: 0,
-		fileName: ''
+		fileName: '',
+		fileType: '',
+		realPath: ''
 	},
 	mutations: {
 		setFolderPath(state: any, paths: string[]) {
@@ -20,9 +19,21 @@ const file = {
 		setFileId(state: any, id: number) {
 			state.fileId = id
 		},
-		setFileInfoLight(state: any, file: FileInfoLight) {
+		setFileInfoLight(state: any, file: IFileInfoLight) {
 			state.fileId = file.id
 			state.fileName = file.name
+		},
+		setFileInfo(state: any, file: IFileInfo) {
+			state.fileId = file.id
+			state.fileName = file.fileName
+			state.fileType = file.fileType
+			state.realPath = file.realPath
+		}
+	},
+	actions: {
+		async fetchFileInfoLight({ commit }: any, id: number) {
+			const data = await fileApis.fetchFileById(id)
+			commit('setFileInfo', data.obj)
 		}
 	}
 }
